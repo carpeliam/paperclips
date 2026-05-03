@@ -3,7 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "exports": {
+    ".": "./dist/domain/game.js"
+  },
+  "types": "./dist/domain/game.d.ts",
   "scripts": {
+    "prepare": "npx tsc --project tsconfig.domain.json",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
