@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es2023",
+    "lib": ["ES2023"],
+    "module": "esnext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+
+    /* Emit */
+    "rootDir": "./src/domain",
+    "outDir": "./dist/domain",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+
+    /* Linting */
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+  },
+  "include": ["src/domain"]
+}
