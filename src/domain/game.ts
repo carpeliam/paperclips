@@ -65,6 +65,9 @@ import {
 import type { ProjectCost, ProjectId, VisibleProject } from './projects/projectTypes'
 import { setSwarmComputingBalance, entertainSwarm, GIFT_PERIOD, INITIAL_ENTERTAIN_COST, SYNCHRONIZATION_COST, synchronizeSwarm } from './compute/swarm'
 
+export { canAllocateTrust } from './compute/trust'
+export { canRunTournament }
+
 export type GamePhase = 'boot' | 'industry' | 'compute' | 'expansion'
 export type GameEarthPhase = 'human' | 'postHuman'
 
@@ -389,6 +392,7 @@ export type GameAction =
   | { type: 'completeProject'; projectId: ProjectId }
   | { type: 'togglePause' }
   | { type: 'reset' }
+  | { type: 'replace'; state: GameState }
 
 export function createInitialGameState(): GameState {
   const wireMarket = createInitialWireMarket()
@@ -598,6 +602,8 @@ export function createInitialGameState(): GameState {
 
 export function reduceGameState(state: GameState, action: GameAction): GameState {
   switch (action.type) {
+    case 'replace':
+      return action.state
     case 'tick':
       return tick(state, action.deltaMs)
     case 'makeClip':
@@ -981,4 +987,4 @@ export function createInitialProjectFlags(): Record<ProjectId, boolean> {
   }
 }
 
-export type { ProjectCost, ProjectId, VisibleProject }
+export type { ProjectCost, ProjectId, VisibleProject, StrategySelection, InvestmentRiskMode }
