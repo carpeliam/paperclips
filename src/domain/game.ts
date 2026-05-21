@@ -232,6 +232,8 @@ export interface GameEarth {
   factoryRate: number
   harvesterRate: number
   wireDroneRate: number
+  factoryBoost: number
+  droneBoost: number
   momentum: number
 }
 
@@ -567,6 +569,8 @@ export function createInitialGameState(): GameState {
       factoryRate: INITIAL_FACTORY_RATE,
       harvesterRate: INITIAL_HARVESTER_RATE,
       wireDroneRate: INITIAL_WIRE_DRONE_RATE,
+      factoryBoost: 1,
+      droneBoost: 1,
       momentum: 0,
     },
     space: {
@@ -983,8 +987,10 @@ export function createInitialProjectFlags(): Record<ProjectId, boolean> {
     project70: false,
     project100: false,
     project101: false,
+    project102: false,
     project110: false,
     project111: false,
+    project112: false,
     project125: false,
     project128: false,
     project118: false,
