@@ -66,6 +66,7 @@ import type { ProjectCost, ProjectId, VisibleProject } from './projects/projectT
 import { setSwarmComputingBalance, entertainSwarm, GIFT_PERIOD, INITIAL_ENTERTAIN_COST, SYNCHRONIZATION_COST, synchronizeSwarm } from './compute/swarm'
 
 export { canAllocateTrust } from './compute/trust'
+export { getTotalDroneCount, totalSecondsUntilSwarmGift, getDroneStatus } from './compute/swarm'
 export { canRunTournament }
 
 export type GamePhase = 'boot' | 'industry' | 'compute' | 'expansion'

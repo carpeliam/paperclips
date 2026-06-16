@@ -128,7 +128,7 @@ export function getDroneStatus(state: GameState): SwarmStatus {
   return 'Active'
 }
 
-export function timeUntilSwarmGift(state: GameState): string | null {
+export function totalSecondsUntilSwarmGift(state: GameState): number | null {
   if (!isSwarmActive(state)) return null
 
   const droneCount = getTotalDroneCount(state)
@@ -138,7 +138,14 @@ export function timeUntilSwarmGift(state: GameState): string | null {
 
   const ticksRemaining = bitsRemaining / giftBitGenerationRate
 
-  const totalSeconds = ticksRemaining / (1000 / COMPUTE_TICK_MS)
+  return ticksRemaining / (1000 / COMPUTE_TICK_MS)
+}
+
+export function timeUntilSwarmGift(state: GameState): string | null {
+  const totalSeconds = totalSecondsUntilSwarmGift(state)
+  if (totalSeconds === null) {
+    return null
+  }
   const hours = Math.floor(totalSeconds / 3600)
   const minutes = Math.floor(totalSeconds % 3600 / 60)
   const seconds = Math.floor(totalSeconds % 3600 % 60)
