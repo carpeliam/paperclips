@@ -188,9 +188,7 @@ function exploreUniverse(state: GameState): GameState {
     return state
   }
 
-  const explorationRate = getExplorationRate(state)
-  const remainingMatter = Math.max(0, state.space.totalMatter - state.space.foundMatter)
-  const discoveredMatter = Math.min(explorationRate, remainingMatter)
+  const discoveredMatter = explorationOutputPerTick(state)
 
   if (discoveredMatter <= 0) {
     return state
@@ -549,6 +547,15 @@ function finalizeBattle(state: GameState, battle: SpaceBattle): GameState {
     },
     lastAction: nextState.lastAction === state.lastAction ? 'Combat engagement concluded' : nextState.lastAction,
   }
+}
+
+function explorationOutputPerTick(state: GameState): number {
+  const explorationRate = getExplorationRate(state)
+  const remainingMatter = Math.max(0, state.space.totalMatter - state.space.foundMatter)
+  return Math.min(explorationRate, remainingMatter)
+}
+export function explorationOutputPerSecond(state: GameState) {
+  return explorationOutputPerTick(state) * (1_000 / SPACE_TICK_MS)
 }
 
 function getExplorationRate(state: GameState): number {
