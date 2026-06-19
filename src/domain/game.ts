@@ -204,8 +204,10 @@ export interface GameEarth {
   farmLevel: number
   batteryLevel: number
   factoryLevel: number
+  maxFactoryLevel: number
   harvesterLevel: number
   wireDroneLevel: number
+  maxDroneLevel: number
   farmCost: number
   batteryCost: number
   factoryCost: number
@@ -533,8 +535,10 @@ export function createInitialGameState(): GameState {
       farmLevel: 0,
       batteryLevel: 0,
       factoryLevel: 0,
+      maxFactoryLevel: 0,
       harvesterLevel: 0,
       wireDroneLevel: 0,
+      maxDroneLevel: 0,
       farmCost: INITIAL_FARM_COST,
       batteryCost: INITIAL_BATTERY_COST,
       factoryCost: INITIAL_FACTORY_COST,

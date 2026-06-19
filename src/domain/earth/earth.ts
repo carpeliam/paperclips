@@ -58,6 +58,7 @@ export function buyFactory(state: GameState): GameState {
   }
 
   const nextLevel = state.earth.factoryLevel + 1
+  const maxLevel = (nextLevel > state.earth.maxFactoryLevel) ? nextLevel : state.earth.maxFactoryLevel
   const multiplier = getFactoryCostMultiplier(nextLevel)
 
   return {
@@ -69,6 +70,7 @@ export function buyFactory(state: GameState): GameState {
     earth: {
       ...state.earth,
       factoryLevel: nextLevel,
+      maxFactoryLevel: maxLevel,
       powMod: Math.max(1, state.earth.powMod),
       factoryCost: state.earth.factoryCost * multiplier,
       factoryBill: state.earth.factoryBill + state.earth.factoryCost,
@@ -190,6 +192,8 @@ export function buyHarvester(state: GameState): GameState {
   }
 
   const nextLevel = state.earth.harvesterLevel + 1
+  const nextDroneLevel = nextLevel + state.earth.wireDroneLevel
+  const maxLevel = (nextDroneLevel > state.earth.maxDroneLevel) ? nextDroneLevel : state.earth.maxDroneLevel
 
   return {
     ...state,
@@ -200,6 +204,7 @@ export function buyHarvester(state: GameState): GameState {
     earth: {
       ...state.earth,
       harvesterLevel: nextLevel,
+      maxDroneLevel: maxLevel,
       powMod: Math.max(1, state.earth.powMod),
       harvesterCost: Math.pow(nextLevel + 1, 2.25) * 1_000_000,
       harvesterBill: state.earth.harvesterBill + state.earth.harvesterCost,
@@ -234,6 +239,8 @@ export function buyWireDrone(state: GameState): GameState {
   }
 
   const nextLevel = state.earth.wireDroneLevel + 1
+  const nextDroneLevel = nextLevel + state.earth.harvesterLevel
+  const maxLevel = (nextDroneLevel > state.earth.maxDroneLevel) ? nextDroneLevel : state.earth.maxDroneLevel
 
   return {
     ...state,
@@ -244,6 +251,7 @@ export function buyWireDrone(state: GameState): GameState {
     earth: {
       ...state.earth,
       wireDroneLevel: nextLevel,
+      maxDroneLevel: maxLevel,
       powMod: Math.max(1, state.earth.powMod),
       wireDroneCost: Math.pow(nextLevel + 1, 2.25) * 1_000_000,
       wireDroneBill: state.earth.wireDroneBill + state.earth.wireDroneCost,
