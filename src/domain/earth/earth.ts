@@ -13,6 +13,13 @@ export interface EarthPowerStatus {
   maxStoredPower: number
 }
 
+function factoryOutputPerTick(state: GameState) {
+  const requestedFactoryOutput = state.earth.powMod * Math.floor(state.earth.factoryLevel) * state.earth.factoryRate
+  return Math.min(requestedFactoryOutput, state.production.wire)
+}
+export function factoryOutputPerSecond(state: GameState) {
+  return factoryOutputPerTick(state) * (1_000 / EARTH_TICK_MS)
+}
 export function runEarthTick(state: GameState, deltaMs: number): GameState {
   if (state.paused || state.earth.humanFlag) {
     return state
@@ -27,9 +34,7 @@ export function runEarthTick(state: GameState, deltaMs: number): GameState {
     next = acquireMatter(next)
     next = processMatter(next)
 
-    const requestedFactoryOutput = next.earth.powMod * Math.floor(next.earth.factoryLevel) * next.earth.factoryRate
-    const actualFactoryOutput = Math.min(requestedFactoryOutput, next.production.wire)
-
+    const actualFactoryOutput = factoryOutputPerTick(next)
     if (actualFactoryOutput > 0) {
       producedClips += actualFactoryOutput
       next = {
@@ -280,14 +285,20 @@ export function rebootWireDrones(state: GameState): GameState {
   }
 }
 
+export function harvesterOutputPerTick(state: GameState) {
+  const swarmEfficiency = getSwarmEfficiency(state)
+  const requested = state.earth.powMod * swarmEfficiency * Math.floor(state.earth.harvesterLevel) * state.earth.harvesterRate
+  return Math.min(requested, state.earth.availableMatter)
+}
+export function harvesterOutputPerSecond(state: GameState) {
+  return harvesterOutputPerTick(state) * (1_000 / EARTH_TICK_MS)
+}
 function acquireMatter(state: GameState): GameState {
   if (!state.earth.harvesterFlag || state.earth.harvesterLevel < 1 || state.earth.availableMatter <= 0) {
     return state
   }
 
-  const swarmEfficiency = getSwarmEfficiency(state)
-  const requested = state.earth.powMod * swarmEfficiency * Math.floor(state.earth.harvesterLevel) * state.earth.harvesterRate
-  const amount = Math.min(requested, state.earth.availableMatter)
+  const amount = harvesterOutputPerTick(state)
 
   if (amount <= 0) {
     return state
@@ -303,14 +314,20 @@ function acquireMatter(state: GameState): GameState {
   }
 }
 
+function wireDroneOutputPerTick(state: GameState) {
+  const swarmEfficiency = getSwarmEfficiency(state)
+  const requested = state.earth.powMod * swarmEfficiency * Math.floor(state.earth.wireDroneLevel) * state.earth.wireDroneRate
+  return Math.min(requested, state.earth.acquiredMatter)
+}
+export function wireDroneOutputPerSecond(state: GameState) {
+  return wireDroneOutputPerTick(state) * (1_000 / EARTH_TICK_MS)
+}
 function processMatter(state: GameState): GameState {
   if (!state.earth.wireProductionFlag || !state.earth.wireDroneFlag || state.earth.wireDroneLevel < 1 || state.earth.acquiredMatter <= 0) {
     return state
   }
 
-  const swarmEfficiency = getSwarmEfficiency(state)
-  const requested = state.earth.powMod * swarmEfficiency * Math.floor(state.earth.wireDroneLevel) * state.earth.wireDroneRate
-  const amount = Math.min(requested, state.earth.acquiredMatter)
+  const amount = wireDroneOutputPerTick(state)
 
   if (amount <= 0) {
     return state
