@@ -71,6 +71,7 @@ export { canAllocateTrust } from './compute/trust'
 export { getTotalDroneCount, totalSecondsUntilSwarmGift, getDroneStatus } from './compute/swarm'
 export { factoryOutputPerSecond, harvesterOutputPerSecond, wireDroneOutputPerSecond } from './earth/earth'
 export { explorationOutputPerSecond } from './space/space'
+export { getTournamentRoundNumber, getTournamentTotalRounds } from './strategy/tournaments'
 export { canCreateTournament, canRunTournament }
 
 export type GamePhase = 'boot' | 'industry' | 'compute' | 'expansion'
