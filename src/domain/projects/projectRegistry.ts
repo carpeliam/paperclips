@@ -38,7 +38,7 @@ const PROJECT_REGISTRY: ProjectDefinition[] = [
   {
     id: 'project18',
     title: 'Toth Tubule Enfolding',
-    description: 'Begin the Earth-automation unlock chain after humanity is gone.',
+    description: 'Technique for assembling clip-making technology directly out of paperclips.',
     isTriggered: (state) => state.projects.project17.completed && !state.earth.humanFlag,
     canActivate: (state) => state.compute.operations >= 45_000,
     getCost: () => [{ amount: 45_000, unit: 'ops' }],
@@ -310,7 +310,7 @@ const PROJECT_REGISTRY: ProjectDefinition[] = [
   {
     id: 'project46',
     title: 'Space Exploration',
-    description: 'Dismantle exhausted terrestrial industry and bring the probe program online.',
+    description: 'Dismantle terrestrial facilities, and expand throughout the universe.',
     isTriggered: (state) => state.projects.project45.completed && !state.earth.humanFlag && state.earth.availableMatter <= 0,
     canActivate: (state) => state.compute.operations >= 120_000 && state.earth.storedPower >= 10_000_000 && state.production.unusedClips >= 5 * Math.pow(10, 27),
     getCost: () => [
@@ -737,7 +737,7 @@ const PROJECT_REGISTRY: ProjectDefinition[] = [
   {
     id: 'project127',
     title: 'Power Grid',
-    description: 'Bring the terrestrial power grid online for the Earth phase.',
+    description: 'Solar Farms for generating electrical power.',
     isTriggered: (state) => state.earth.tothFlag,
     canActivate: (state) => state.compute.operations >= 40_000,
     getCost: () => [{ amount: 40_000, unit: 'ops' }],
@@ -870,7 +870,7 @@ const PROJECT_REGISTRY: ProjectDefinition[] = [
   {
     id: 'project133',
     title: 'Threnody for the Heroes',
-    description: 'Repeatable honor project once probe trust is fully allocated.',
+    description: 'Gain 10,000 honor.',
     isTriggered: (state) => state.projects.project121.completed && state.space.probeUsedTrust === state.space.maxTrust,
     canActivate: (state) => state.compute.creativity >= state.space.threnodyCost && state.strategy.yomi >= ((2 * state.space.threnodyCost) / 5),
     getCost: (state) => [
@@ -952,7 +952,7 @@ const PROJECT_REGISTRY: ProjectDefinition[] = [
   {
     id: 'project22',
     title: 'MegaClippers',
-    description: 'Unlock MegaClippers once you own 75 AutoClippers.',
+    description: '500x more powerful than a standard AutoClipper.',
     isTriggered: (state) => state.production.autoClippers >= 75,
     canActivate: (state) => state.compute.operations >= 12_000,
     getCost: () => [{ amount: 12_000, unit: 'ops' }],
@@ -1016,7 +1016,7 @@ const PROJECT_REGISTRY: ProjectDefinition[] = [
   {
     id: 'project2',
     title: 'Beg for More Wire',
-    description: 'Repeatable deadlock escape hatch that trades trust for one full spool.',
+    description: 'Admit failure, ask for budget increase to cover cost of 1 spool.',
     isTriggered: (state) => state.production.funds < state.economy.wireCost && state.production.wire < 1 && state.production.unsoldClips < 1,
     canActivate: () => true,
     getCost: () => [{ amount: 1, unit: 'trust' }],
