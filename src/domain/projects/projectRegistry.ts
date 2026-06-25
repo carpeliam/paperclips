@@ -953,7 +953,7 @@ const PROJECT_REGISTRY: ProjectDefinition[] = [
   {
     id: 'project22',
     title: 'MegaClippers',
-    description: 'Unlock MegaClippers once you own 75 AutoClippers.',
+    description: '500x more powerful than a standard AutoClipper.',
     isVisible: (state) => state.production.autoClippers >= 75 && !state.projects.project22,
     canActivate: (state) => state.compute.operations >= 12_000,
     getCost: () => [{ amount: 12_000, unit: 'ops' }],
